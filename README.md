@@ -15,4 +15,40 @@ Conventional computer vision pipelines typically treat low-level enhancement and
 
 *Figure 2: Composition of loss functions in JOANet.*
 
+## Prerequisites
 
+- Python 3.10+
+- PyTorch 2.0.1+
+- NVIDIA GPU with ≥ 40GB memory (A100 recommended)
+
+## Training Guide
+The following datasets were used in this article:
+
+**1. Synapse Multi-organ Segmentation Dataset**: 30 patients' abdominal CT images from MICCAI 2015 Multi-Organ CT Annotation Challenge.
+
+**2. Automated Cardiac Diagnosis Challenge Dataset**: Cardiac MRI scans with left ventricle, right ventricle, and myocardium annotations.
+
+**3. Promise12 Dataset**: Prostate MRI images from multiple centers with diverse acquisition protocols.
+
+**4. Brain Tumour Segmentation Dataset**: Real clinical T1-weighted MRI with brain tumor annotations.
+
+### Data Generation Process
+During training, we generate low-resolution training images by applying **bicubic downsampling** to the original high-resolution images. This process simulates real-world low-quality medical imaging conditions.
+
+### Complete Training Dataset Requirements
+A complete training dataset must contain three key components:
+1. **Low-resolution images** - Generated via bicubic downsampling
+2. **Original high-resolution images** - Used as reconstruction targets
+3. **Segmentation masks** - Ground truth labels for semantic tasks
+
+###  Configure Training Paths
+Modify the path settings in `train.py` to match your dataset locations and strart training with 
+```Bash
+python train.py
+```
+## Testing Guide
+A pretrained model on the BTS dataset is available in the `model/` folder for testing:
+
+```bash
+python test.py
+```
